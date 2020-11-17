@@ -2,6 +2,9 @@
   <div class="index container">
     <div class="card" v-for="smoothie in smoothies" :key="smoothie.id">
       <div class="card-content">
+        <i class="material-icons delete"
+          @click="deleteSmoothie(smoothie.id)"
+        >delete</i>
         <h4 class="indigo-text">{{ smoothie.title }}</h4>
         <ul class="ingredients">
           <li v-for="(ing, index) in smoothie.ingredients" :key="index">
@@ -14,18 +17,39 @@
 </template>
 
 <script>
-export default {
-  name: 'Index',
-  data () {
-    return {
-      smoothies: [
-        { id: 1, title: 'Ninja Brew', slug: 'ninja-brew', ingredients: ['bananas', 'coffee', 'milk'] },
-        { id: 2, title: 'Tropical Punch', slug: 'ninja-brew', ingredients: ['mangos', 'melon', 'juice'] },
-        { id: 3, title: 'Morning Mood', slug: 'ninja-brew', ingredients: ['strawberries', 'cream', 'rasberries'] }
-      ]
+  import db from '@/firebase/init';
+  export default {
+    name: 'Index',
+    data () {
+      return {
+        smoothies: []
+      }
+    },
+    methods: {
+      deleteSmoothie(id) {
+        // delete doc from firestore
+        db.collection('smoothies').doc(id).delete()
+        .then(() => {
+          this.smoothies = this.smoothies.filter(smoothie => {
+            return smoothie.id != id
+          })
+        })
+        // console.log('id', id)
+      }
+    },
+    created() {
+      // fetch data from firestore
+      db.collection('smoothies').get()
+      .then(snapshot => {
+        snapshot.forEach(doc =>{
+          //console.log(doc.data(), doc.id)
+          let smoothie = doc.data()
+          smoothie.id = doc.id
+          this.smoothies.push(smoothie)
+        })
+      })
     }
   }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -51,6 +75,18 @@ export default {
 
   .index .ingredients li {
     display: inline-block;
+  }
+
+  .index .delete {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
+    color: var(--gray300);
+  }
+
+  .index .delete:hover {
+    color: var(--gray600);
   }
 
 </style>
