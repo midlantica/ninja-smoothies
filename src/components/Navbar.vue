@@ -1,5 +1,5 @@
 <template>
-  <div class="nav">
+  <div class="nav marB3">
     <nav class="nav-extended indigo">
       <div class="nav-content">
         <router-link to="#">
