@@ -8,7 +8,7 @@ Vue.config.productionTip = false
 
 import '../node_modules/materialize-css/dist/css/materialize.min.css';
 import '../node_modules/materialize-css/dist/js/materialize.min';
-M.AutoInit();
+import '../node_modules/material-design-icons/iconfont/material-icons.css'
 
 /* eslint-disable no-new */
 new Vue({
