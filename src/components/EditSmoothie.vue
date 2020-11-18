@@ -58,7 +58,7 @@
     },
     methods: {
       editSmoothie() {
-        // console.log(this.smoothie.title, this.smoothie.ingredients);
+        //console.log(this.smoothie.title, this.smoothie.ingredients);
         if(this.smoothie.title){
           this.feedback = null
           // create slug from Title

@@ -14,9 +14,7 @@
       </div>
       <span class="btn-floating btn halfway-fab green lighten-1 text-white">
         <router-link :to="{ name: 'EditSmoothie', params: {smoothie_slug: smoothie.slug} }">
-          <i class="material-icons edit"
-          @click="editSmoothie(smoothie.id)"
-        >edit</i>
+          <i class="material-icons edit">edit</i>
         </router-link>
       </span>
     </div>
@@ -25,6 +23,7 @@
 
 <script>
   import db from '@/firebase/init';
+
   export default {
     name: 'Index',
     data () {
