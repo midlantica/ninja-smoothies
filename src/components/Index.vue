@@ -1,10 +1,10 @@
 <template>
   <div class="index container">
-    <div class="card" v-for="smoothie in smoothies" :key="smoothie.id">
+    <div class="card br-H" v-for="smoothie in smoothies" :key="smoothie.id">
       <div class="card-content">
         <i class="material-icons delete"
           @click="deleteSmoothie(smoothie.id)"
-        >delete</i>
+        >clear</i>
         <h4 class="indigo-text">{{ smoothie.title }}</h4>
         <ul class="ingredients">
           <li v-for="(ing, index) in smoothie.ingredients" :key="index">
@@ -12,6 +12,13 @@
           </li>
         </ul>
       </div>
+      <span class="btn-floating btn halfway-fab green lighten-1 text-white">
+        <router-link :to="{ name: 'EditSmoothie', params: {smoothie_slug: smoothie.slug} }">
+          <i class="material-icons edit"
+          @click="editSmoothie(smoothie.id)"
+        >edit</i>
+        </router-link>
+      </span>
     </div>
   </div>
 </template>
@@ -57,7 +64,7 @@
   .index {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    grid-gap: 1.5rem;
+    grid-gap: 3rem 2.15rem;
   }
 
   .index .card {
@@ -79,8 +86,8 @@
 
   .index .delete {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: .5rem;
+    right: .5rem;
     cursor: pointer;
     color: var(--gray300);
   }
